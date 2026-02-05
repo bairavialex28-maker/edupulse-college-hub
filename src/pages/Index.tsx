@@ -6,10 +6,13 @@ import { AIAssistant } from "./AIAssistant";
 import { Placements } from "./Placements";
 import { Profile } from "./Profile";
 import { BottomNav } from "@/components/ui/bottom-nav";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Index = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activeTab, setActiveTab] = useState("home");
+  const isMobile = useIsMobile();
 
   if (!isLoggedIn) {
     return <Login onLogin={() => setIsLoggedIn(true)} />;
@@ -33,9 +36,25 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background max-w-md mx-auto relative">
-      {renderContent()}
-      <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+    <div className="min-h-screen bg-background">
+      <div className="flex">
+        {/* Desktop Sidebar */}
+        {!isMobile && (
+          <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+        )}
+        
+        {/* Main Content */}
+        <main className={`flex-1 ${!isMobile ? 'ml-64' : ''}`}>
+          <div className="max-w-5xl mx-auto">
+            {renderContent()}
+          </div>
+        </main>
+      </div>
+      
+      {/* Mobile Bottom Nav */}
+      {isMobile && (
+        <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      )}
     </div>
   );
 };
