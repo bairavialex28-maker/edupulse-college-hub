@@ -1,20 +1,28 @@
-import { Home, FileText, Bot, Briefcase, User } from "lucide-react";
+import { Home, FileText, Bot, Briefcase, User, BarChart3 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface BottomNavProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
+  userRole?: "student" | "faculty";
 }
 
-const navItems = [
+const studentNav = [
   { id: "home", label: "Home", icon: Home },
   { id: "tests", label: "Tests", icon: FileText },
   { id: "ai", label: "AI", icon: Bot },
-  { id: "placements", label: "Jobs", icon: Briefcase },
+  { id: "prediction", label: "Predict", icon: BarChart3 },
   { id: "profile", label: "Profile", icon: User },
 ];
 
-export function BottomNav({ activeTab, onTabChange }: BottomNavProps) {
+const facultyNav = [
+  { id: "home", label: "Home", icon: Home },
+  { id: "prediction", label: "Predict", icon: BarChart3 },
+  { id: "profile", label: "Profile", icon: User },
+];
+
+export function BottomNav({ activeTab, onTabChange, userRole = "student" }: BottomNavProps) {
+  const navItems = userRole === "faculty" ? facultyNav : studentNav;
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 glass border-t border-border safe-bottom">
       <div className="flex items-center justify-around py-2">

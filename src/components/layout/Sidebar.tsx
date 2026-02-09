@@ -1,20 +1,29 @@
- import { Home, FileText, Bot, Briefcase, User, GraduationCap } from "lucide-react";
+ import { Home, FileText, Bot, Briefcase, User, GraduationCap, BarChart3 } from "lucide-react";
  import { cn } from "@/lib/utils";
  
  interface SidebarProps {
    activeTab: string;
    onTabChange: (tab: string) => void;
+   userRole?: "student" | "faculty";
  }
  
- const navItems = [
+ const studentNav = [
    { id: "home", label: "Dashboard", icon: Home },
    { id: "tests", label: "Mock Tests", icon: FileText },
    { id: "ai", label: "AI Assistant", icon: Bot },
    { id: "placements", label: "Placements", icon: Briefcase },
+   { id: "prediction", label: "Marks Prediction", icon: BarChart3 },
    { id: "profile", label: "Profile", icon: User },
  ];
  
- export function Sidebar({ activeTab, onTabChange }: SidebarProps) {
+ const facultyNav = [
+   { id: "home", label: "Dashboard", icon: Home },
+   { id: "prediction", label: "Marks Prediction", icon: BarChart3 },
+   { id: "profile", label: "Profile", icon: User },
+ ];
+ 
+ export function Sidebar({ activeTab, onTabChange, userRole = "student" }: SidebarProps) {
+   const navItems = userRole === "faculty" ? facultyNav : studentNav;
    return (
      <aside className="fixed left-0 top-0 h-screen w-64 bg-card border-r border-border flex flex-col z-50">
        {/* Logo */}

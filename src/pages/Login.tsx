@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface LoginProps {
-  onLogin: () => void;
+  onLogin: (role?: string) => void;
 }
 
 const features = [
@@ -154,7 +154,7 @@ export function Login({ onLogin }: LoginProps) {
 
             <Button 
               className="w-full h-12 md:h-14 mt-6 gradient-primary text-primary-foreground rounded-xl md:rounded-2xl shadow-glow text-base md:text-lg font-semibold hover:opacity-90 hover:scale-[1.02] transition-all"
-              onClick={onLogin}
+              onClick={() => onLogin(userType)}
             >
               Sign In
               <ArrowRight className="w-5 h-5 md:w-6 md:h-6 ml-2" />
